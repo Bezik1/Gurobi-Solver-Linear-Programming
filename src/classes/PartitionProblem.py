@@ -8,8 +8,6 @@ class PartitionProblem:
         self.input_size = input_size
         self.input_mean = 0
         
-        self.solution: list[Var] = []
-        
         self.initialize()
         
     def __call__(self, input):
@@ -25,7 +23,6 @@ class PartitionProblem:
     
     def initialize(self):
         self.model = Model(PROBLEM_NAMES["partition_problem"])
-        
         self.build_variables()
     
     def build_variables(self):
