@@ -1,10 +1,10 @@
 import pytest
-from src.classes.KnapsackProblem import KnapsackProblem
+from src.classes.MakespanSchedulingProblem import MakespanSchedulingProblem
 
-def test_knapsack_problem():
+def test_makespan_scheduling_problem():
     tasks = [3, 9, 4, 7]
     processes_size = 2
-    problem = KnapsackProblem(tasks_size=len(tasks), processes_size=processes_size)
+    problem = MakespanSchedulingProblem(tasks_size=len(tasks), processes_size=processes_size)
     
     solution = problem(tasks)
     
