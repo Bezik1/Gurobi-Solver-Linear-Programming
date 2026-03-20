@@ -22,7 +22,7 @@ conda activate gurobi_env
 
 # Run Tests
 export PYTHONPATH=$PYTHONPATH:.
-pytest tests/[file_name].test.py
+pytest tests/[file_name].py
 ```
 
 ## 📚 Documentation
