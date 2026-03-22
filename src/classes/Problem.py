@@ -1,48 +1,46 @@
 from abc import ABC, abstractmethod
 
+
 class Problem(ABC):
     """
-    Problem class it's a templated designated, for a structure of Linear Programming
-    Problem class. Abstract methods are meant, to be used with the cooperation with gurobi
-    solver engine.
+    Problem class is a template for Linear Programming Problem classes.
+    Abstract methods are intended to be used with the Gurobi solver engine.
     """
-    
+
     @abstractmethod
     def __call__(self):
         """
-        This method should be used, as a run optimization method. Within it, there
-        should be implemented a way of collecting required data and build_criterion,
-        build_constraints and optimization method should be called here.
+        This method should be used as the run optimization method. It should
+        collect required data, then call build_criterion, build_constraints,
+        and execute the optimization.
         """
         pass
-    
+
     @abstractmethod
     def initialize(self):
         """
-        Initialize gurobi model and invokes build_variables method. It can be
-        also used, for any preparation process, that may be needed.
+        Initialize the Gurobi model and invoke build_variables. Can also
+        prepare any other required setup.
         """
         pass
-    
+
     @abstractmethod
     def build_variables(self):
         """
-        This method should initialize all variables, that would be later optimized,
-        by the gurobi solving engine.
+        Initialize all variables that will be optimized by Gurobi.
         """
         pass
-    
+
     @abstractmethod
     def build_criterion(self):
         """
-        This method should implement the optimization method / the criterion, for
-        the solving model.
+        Implement the optimization criterion for the model.
         """
         pass
-    
+
     @abstractmethod
     def build_constraints(self):
         """
-        The problems constraints should be specified here.
+        Specify the problem's constraints here.
         """
         pass

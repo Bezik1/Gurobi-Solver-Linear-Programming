@@ -20,9 +20,12 @@ conda install scipy
 conda install pytest
 conda activate gurobi_env
 
-# Run Tests
-export PYTHONPATH=$PYTHONPATH:.
-pytest tests/[file_name].py
+# Run tests
+python3 -m unittest discover -s tests -p '*test.py'
+
+# Set local git hook pre-commit
+chmod +x .githooks/pre-commit
+git config core.hooksPath .githooks
 ```
 
 ## 📚 Documentation
