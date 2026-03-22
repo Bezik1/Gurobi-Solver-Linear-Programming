@@ -2,13 +2,17 @@
 
 echo "pre-commit: Running pre-commit tests..."
 
+# Aktywacja środowiska Conda
+echo "pre-commit: Activating Conda environment gurobi_env..."
+eval "$(/opt/anaconda3/bin/conda shell.bash hook)"
+conda activate gurobi_env
+
 echo "pre-commit: Setting source path variable."
 export PYTHONPATH=$PYTHONPATH:$(pwd)/src
 
 echo "pre-commit: Running code quality tests..."
 flake8 .
 
-echo "pre-commit: Loading code quality tests result."
 FLAKE8_RESULT=$?
 
 if [ $FLAKE8_RESULT -ne 0 ]; then
@@ -18,14 +22,12 @@ fi
 
 echo "pre-commit: Code quality tests passed! Proceeding with other tests..."
 
-echo "pre-commit: Runing tests."
-python3 -m unittest discover -s tests -p '*test.py'
+echo "pre-commit: Running unit tests..."
+python -m unittest discover -s tests -p '*test.py'
 
-echo "pre-commit: Loading tests result."
 RESULT=$?
 
-if [ $RESULT -ne 0 ];
-then
+if [ $RESULT -ne 0 ]; then
     echo "pre-commit: Tests failed! Commit aborted. Please fix the errors before committing."
     exit 1
 else
