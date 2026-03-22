@@ -18,7 +18,7 @@ jobs:
           bash miniconda.sh -b -p $HOME/miniconda
           eval "$($HOME/miniconda/bin/conda shell.bash hook)"
           conda init bash
-          conda create -y -n testenv python=3.10.20
+          conda create -y -n testenv python=3.10 20
           conda activate testenv
           pip install -r requirements.txt
 
