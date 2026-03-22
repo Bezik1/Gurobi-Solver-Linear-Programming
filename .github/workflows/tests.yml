@@ -10,25 +10,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10.20'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          if [ $? -eq 0 ]; then
-              echo "Dependencies installed successfully!"
-          else
-              echo "Failed to install dependencies!"
-              exit 1
-          fi
+      - name: Set up Conda and Install dependencies
         shell: bash
+        run: |
+          # Install Miniconda
+          curl -fsSL https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh
+          bash miniconda.sh -b -p $HOME/miniconda
+          eval "$($HOME/miniconda/bin/conda shell.bash hook)"
+          conda init bash
+          conda create -y -n testenv python=3.10.20
+          conda activate testenv
+          pip install -r requirements.txt
 
       - name: Code Quality Test
+        shell: bash
         run: |
+          eval "$($HOME/miniconda/bin/conda shell.bash hook)"
+          conda activate testenv
           flake8 .
           if [ $? -eq 0 ]; then
               echo "Code quality check passed!"
@@ -36,10 +34,12 @@ jobs:
               echo "Code quality issues detected!"
               exit 1
           fi
-        shell: bash
 
       - name: Code Tests
+        shell: bash
         run: |
+          eval "$($HOME/miniconda/bin/conda shell.bash hook)"
+          conda activate testenv
           export PYTHONPATH=src
           python -m unittest discover -s tests -p '*test.py'
           if [ $? -eq 0 ]; then
@@ -48,4 +48,3 @@ jobs:
               echo "Some tests failed!"
               exit 1
           fi
-        shell: bash
