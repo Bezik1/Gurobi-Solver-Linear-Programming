@@ -33,7 +33,12 @@ git config core.hooksPath .githooks
 Generate Documentation Template
 
 ```bash
-# todo
+python3 -m pydoc -w \
+    src.classes.Problem \
+    src.classes.PartitionProblem \
+    src.classes.MakespanSchedulingProblem \
+    src.classes.KnapsackProblem \
+    src.classes.DistancesProblem
 ```
 
 ## 🛠 Technologies
