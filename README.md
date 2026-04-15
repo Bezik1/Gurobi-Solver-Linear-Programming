@@ -36,12 +36,6 @@ Generate Documentation Template
 # todo
 ```
 
-🔧 Git Hooks
-
-```bash
-# todo
-```
-
 ## 🛠 Technologies
 
 <p align="center">
